@@ -1,18 +1,13 @@
 "use client";
-import { Calculator } from "./components/Calculator";
-import { useState } from "react";
-import { LightSwitch } from "./components/LightSwitch";
-import { SecretMessage } from "./components/SecretMessage";
+import { Pizza } from "./fast/Pizza";
+import { Header } from "./fast/Header";
+import { MainCard } from "./fast/MainCard";
 export default function Home() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div>
-      <h1 className="flex align-center justify-center text-5xl">useState</h1>
-      <div className="min-h-screen bg-gray600 p-6 flex justify-around">
-        <Calculator />
-        <LightSwitch />
-        <SecretMessage />
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 px-4 py-10">
+      <div className="mx-auto max-w-3xl">
+        <Header />
+        <MainCard />
       </div>
     </div>
   );
