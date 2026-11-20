@@ -23,233 +23,160 @@ export const MainCard = () => {
 
   const totalPrice = singlePrice * count;
   const discount = count >= 3 ? 0.1 : 0;
-  const discountAmount = totalPrice * discount;
-  const finalPrice = totalPrice - discountAmount;
+  const finalPrice = totalPrice - totalPrice * discount;
 
-  const formatPrice = (price) => price.toLocaleString("en-US") + "₮";
+  const noToppings = !cheese && !mushroom && !pepper;
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-xl shadow-orange-100/50">
-      <div className="bg-gradient-to-r from-orange-500 to-red-500 px-6 py-5 text-white">
-        <h2 className="text-xl font-bold">🍕 Пицца захиалга</h2>
-        <p className="mt-1 text-sm text-orange-100">
-          Хэмжээ болон нэмэлтээ сонгоно уу
-        </p>
+    <div className="max-w-md mx-auto p-6 bg-white rounded-2xl shadow-lg space-y-6 text-gray-800">
+      <h2 className="text-2xl font-bold text-center">🍕 Пицца угсрах</h2>
+      <div>
+        <p className="font-semibold mb-2">Хэмжээ сонгох:</p>
+        <div className="grid grid-cols-3 gap-2">
+          {["S", "M", "L"].map((key) => (
+            <button
+              key={key}
+              onClick={() => {
+                setSize(key);
+                setOrdered(false);
+              }}
+              className={`py-2 px-3 rounded-xl font-medium border transition ${
+                size === key
+                  ? "bg-orange-500 text-white border-orange-500"
+                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+              }`}
+            >
+              <div>{sizePrices[key].name}</div>
+              <div className="text-xs">{sizePrices[key].price}₮</div>
+            </button>
+          ))}
+        </div>
       </div>
-
-      <div className="space-y-9 p-6 md:p-8">
-        <section>
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-xl font-bold text-gray-800">
-              01. Хэмжээ сонгох
-            </h2>
-            <span className="text-sm text-gray-400">Хэмжээ</span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {["S", "M", "L"].map((item) => (
-              <button
-                key={item}
-                type="button"
-                onClick={() => {
-                  setSize(item);
-                  setOrdered(false);
-                }}
-                className={`rounded-2xl border-2 p-4 text-center transition-all duration-200 hover:-translate-y-1 ${
-                  size === item
-                    ? "border-orange-500 bg-orange-500 text-white shadow-lg shadow-orange-200"
-                    : "border-gray-200 bg-white text-gray-700 hover:border-orange-300"
-                }`}
-              >
-                <div className="mb-2 text-3xl">
-                  {item === "S" ? "🍕" : item === "M" ? "🍕🍕" : "🍕🍕🍕"}
-                </div>
-                <p className="font-bold">{sizePrices[item].name}</p>
-                <p className="mt-1 text-sm font-semibold">
-                  {formatPrice(sizePrices[item].price)}
-                </p>
-              </button>
-            ))}
-          </div>
-        </section>
-        <section>
-          <div className="mb-4">
-            <h2 className="text-xl font-bold text-gray-800">
-              02. Нэмэлт сонгох
-            </h2>
-            <p className="mt-1 text-sm text-gray-400">
-              Хэд хэдийг зэрэг сонгож болно
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            <button
-              type="button"
-              onClick={() => {
-                setCheese(!cheese);
-                setOrdered(false);
-              }}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-4 transition-all ${
-                cheese
-                  ? "border-green-500 bg-green-50"
-                  : "border-gray-200 hover:border-green-300"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl">🧀</span>
-                <div className="text-left">
-                  <p className="font-bold text-gray-800">Бяслаг</p>
-                  <p className="text-sm text-gray-400">+3,000₮</p>
-                </div>
-              </div>
-              <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                  cheese
-                    ? "bg-green-500 text-white"
-                    : "border-2 border-gray-300"
-                }`}
-              >
-                {cheese && "✓"}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setMushroom(!mushroom);
-                setOrdered(false);
-              }}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-4 transition-all ${
-                mushroom
-                  ? "border-green-500 bg-green-50"
-                  : "border-gray-200 hover:border-green-300"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl">🍄</span>
-                <div className="text-left">
-                  <p className="font-bold text-gray-800">Мөөг</p>
-                  <p className="text-sm text-gray-400">+2,000₮</p>
-                </div>
-              </div>
-              <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                  mushroom
-                    ? "bg-green-500 text-white"
-                    : "border-2 border-gray-300"
-                }`}
-              >
-                {mushroom && "✓"}
-              </span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setPepper(!pepper);
-                setOrdered(false);
-              }}
-              className={`flex w-full items-center justify-between rounded-2xl border-2 p-4 transition-all ${
-                pepper
-                  ? "border-green-500 bg-green-50"
-                  : "border-gray-200 hover:border-green-300"
-              }`}
-            >
-              <div className="flex items-center gap-4">
-                <span className="text-3xl">🌶️</span>
-                <div className="text-left">
-                  <p className="font-bold text-gray-800">Чинжүү</p>
-                  <p className="text-sm text-gray-400">+1,000₮</p>
-                </div>
-              </div>
-              <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full ${
-                  pepper
-                    ? "bg-green-500 text-white"
-                    : "border-2 border-gray-300"
-                }`}
-              >
-                {pepper && "✓"}
-              </span>
-            </button>
-          </div>
-        </section>
-        <section>
-          <h2 className="mb-4 text-xl font-bold text-gray-800">
-            03. Тоо ширхэг
-          </h2>
-
-          <div className="flex items-center justify-between rounded-2xl bg-gray-50 p-5">
-            <div>
-              <p className="font-bold text-gray-800">Пиццаны тоо</p>
-              <p className="text-xs text-gray-400">
-                3 ба түүнээс дээш захиалбал 10% хямдралтай
-              </p>
-            </div>
-
-            <div className="flex items-center gap-5">
-              <button
-                type="button"
-                disabled={count === 1}
-                onClick={() => {
-                  setCount(count - 1);
-                  setOrdered(false);
-                }}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white font-bold text-gray-700 hover:bg-gray-100 disabled:opacity-40"
-              >
-                -
-              </button>
-              <span className="w-6 text-center text-lg font-black text-gray-800">
-                {count}
-              </span>
-              <button
-                type="button"
-                onClick={() => {
-                  setCount(count + 1);
-                  setOrdered(false);
-                }}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-gray-200 bg-white font-bold text-gray-700 hover:bg-gray-100"
-              >
-                +
-              </button>
-            </div>
-          </div>
-        </section>
-        <section className="rounded-2xl border border-orange-100 bg-orange-50/50 p-5">
-          <div className="space-y-2 text-sm text-gray-600">
-            <div className="flex justify-between">
-              <span>Нэг бүрийн үнэ:</span>
-              <span className="font-semibold text-gray-800">
-                {formatPrice(singlePrice)}
-              </span>
-            </div>
-
-            {discount > 0 && (
-              <div className="flex justify-between text-green-600">
-                <span>Хямдрал (10%):</span>
-                <span className="font-semibold">
-                  -{formatPrice(discountAmount)}
-                </span>
-              </div>
-            )}
-
-            <div className="flex items-center justify-between border-t border-orange-200/60 pt-3 text-lg font-black text-gray-900">
-              <span>Нийт төлөх дүн:</span>
-              <span className="text-2xl text-orange-600">
-                {formatPrice(finalPrice)}
-              </span>
-            </div>
-          </div>
+      <div>
+        <p className="font-semibold mb-2">Нэмэлт орц:</p>
+        <div className="flex flex-col gap-2">
+          <button
+            onClick={() => {
+              setCheese(!cheese);
+              setOrdered(false);
+            }}
+            className={`p-3 rounded-xl border text-left flex justify-between transition ${
+              cheese
+                ? "bg-green-500 text-white border-green-500"
+                : "bg-white text-gray-700 border-gray-300"
+            }`}
+          >
+            <span>🧀 Бяслаг</span>
+            <span>+3000₮</span>
+          </button>
 
           <button
-            type="button"
-            onClick={() => setOrdered(true)}
-            className="mt-5 w-full rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 py-4 font-bold text-white shadow-lg shadow-orange-200 transition hover:opacity-95"
+            onClick={() => {
+              setMushroom(!mushroom);
+              setOrdered(false);
+            }}
+            className={`p-3 rounded-xl border text-left flex justify-between transition ${
+              mushroom
+                ? "bg-green-500 text-white border-green-500"
+                : "bg-white text-gray-700 border-gray-300"
+            }`}
           >
-            {ordered ? "✓ Захиалга баталгаажлаа!" : "Захиалга өгөх"}
+            <span>🍄 Мөөг</span>
+            <span>+2000₮</span>
           </button>
-        </section>
+
+          <button
+            onClick={() => {
+              setPepper(!pepper);
+              setOrdered(false);
+            }}
+            className={`p-3 rounded-xl border text-left flex justify-between transition ${
+              pepper
+                ? "bg-green-500 text-white border-green-500"
+                : "bg-white text-gray-700 border-gray-300"
+            }`}
+          >
+            <span>🌶️ Чинжүү</span>
+            <span>+1000₮</span>
+          </button>
+        </div>
       </div>
+      <div className="flex items-center justify-between">
+        <span className="font-semibold">Тоо ширхэг:</span>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => {
+              setCount(count - 1);
+              setOrdered(false);
+            }}
+            disabled={count === 1}
+            className="w-10 h-10 rounded-full bg-gray-200 font-bold text-xl disabled:opacity-40"
+          >
+            −
+          </button>
+          <span className="text-xl font-bold w-6 text-center">{count}</span>
+          <button
+            onClick={() => {
+              setCount(count + 1);
+              setOrdered(false);
+            }}
+            disabled={count === 5}
+            className="w-10 h-10 rounded-full bg-gray-200 font-bold text-xl disabled:opacity-40"
+          >
+            +
+          </button>
+        </div>
+      </div>
+      <div className="p-4 bg-gray-100 rounded-xl space-y-2">
+        <p className="font-medium text-lg">
+          «{sizePrices[size].name} пицца ·{" "}
+          {noToppings ? (
+            <span className="text-gray-500">нэмэлтгүй</span>
+          ) : (
+            <span>
+              {cheese && "🧀 "}
+              {mushroom && "🍄 "}
+              {pepper && "🌶️"}
+            </span>
+          )}
+          »
+        </p>
+
+        <div className="flex justify-between text-sm text-gray-600">
+          <span>Нэг пиццаны үнэ:</span>
+          <span>{singlePrice}₮</span>
+        </div>
+
+        <div className="flex justify-between items-center font-bold text-lg pt-2 border-t">
+          <span>Нийт үнэ:</span>
+          <div className="text-right">
+            {discount > 0 && (
+              <span className="line-through text-gray-400 text-sm mr-2">
+                {totalPrice}₮
+              </span>
+            )}
+            <span className="text-orange-600">{finalPrice}₮</span>
+          </div>
+        </div>
+
+        {discount > 0 && (
+          <p className="text-xs text-green-600 text-right">
+            🎉 3+ пицца авсан тул 10% хямдарлаа!
+          </p>
+        )}
+      </div>
+      <button
+        onClick={() => setOrdered(true)}
+        className="w-full py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-xl transition"
+      >
+        Захиалах
+      </button>
+
+      {ordered && (
+        <div className="p-3 bg-green-100 text-green-800 text-center font-semibold rounded-xl">
+          ✅ Захиалга баталгаажлаа!
+        </div>
+      )}
     </div>
   );
 };

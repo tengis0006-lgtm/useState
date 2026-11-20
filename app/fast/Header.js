@@ -22,7 +22,7 @@ export const Header = () => {
     sizePrices[size].price + cheesePrice + mushroomPrice + pepperPrice;
 
   const totalPrice = singlePrice * count;
-  const discount = count >= 3 ? 0.1 : 0;
+  const discount = count >= 5 ? 0.1 : 0;
   const discountAmount = totalPrice * discount;
   const finalPrice = totalPrice - discountAmount;
 

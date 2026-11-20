@@ -1,14 +1,12 @@
 "use client";
-import { Pizza } from "./fast/Pizza";
-import { Header } from "./fast/Header";
-import { MainCard } from "./fast/MainCard";
+import { TodoList } from "./fast/TodoList";
+
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-amber-50 to-red-50 px-4 py-10">
-      <div className="mx-auto max-w-3xl">
-        <Header />
-        <MainCard />
+    <main className="min-h-screen bg-slate-100 px-6 py-12 text-slate-900 flex flex-col ">
+      <div className="mx-auto mt-10 grid max-w-4xl items-start gap-6 md: grid-cols-3">
+        <TodoList />
       </div>
-    </div>
+    </main>
   );
 }
