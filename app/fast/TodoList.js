@@ -102,7 +102,7 @@ export const TodoList = () => {
                 {filteredList.map((job) => (
                   <div
                     key={job.id}
-                    className="justify-between items-center bg-[#F3F4F6] rounded-[10px] w-full h-[45px] flex px-[15px]"
+                    className="justify-between items-center bg-[#F3F4F6] rounded-[10px] w-full h-11 flex px-[15px]"
                   >
                     <input
                       type="checkbox"
